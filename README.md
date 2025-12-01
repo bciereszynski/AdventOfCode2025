@@ -1,2 +1,4 @@
 # AdventOfCode2025
-Solutions for algorithmics problem
+Solutions for algorithmics problems
+
+Problems descriptions: https://adventofcode.com/2025
