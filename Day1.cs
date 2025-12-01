@@ -1,6 +1,6 @@
 using System;
 
-const string fileName = @"inputs\day1b.txt";
+const string fileName = @"inputs\day1.txt";
 const int modulo = 100;
 
 var state = 50;
