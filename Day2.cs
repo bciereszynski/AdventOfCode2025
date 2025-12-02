@@ -1,9 +1,22 @@
 using System;
 
-const string fileName = @"inputs\day2_small.txt";
+const string fileName = @"inputs\day2.txt";
 
-bool isInvalid(string value)
+bool isInvalid(long value)
 {
+    var size = value.ToString().Length;
+
+    if (size % 2 != 0)
+    {
+        return false;
+    }
+
+    long division = Convert.ToInt64(Math.Pow(10, size / 2));
+    if (value / division == value % division)
+    {
+        return true;
+    }
+
     return false;
 }
 
@@ -19,7 +32,7 @@ foreach (string range in line.Split(','))
 
     for (var i = begin; i <= end; i++)
     {
-        if (isInvalid(i.ToString()))
+        if (isInvalid(i))
         {
             count += i;
         }
