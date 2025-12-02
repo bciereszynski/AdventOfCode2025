@@ -2,7 +2,7 @@ using System;
 
 const string fileName = @"inputs\day2.txt";
 
-bool isInvalid(long value)
+bool isInvalid1(long value)
 {
     var size = value.ToString().Length;
 
@@ -20,6 +20,42 @@ bool isInvalid(long value)
     return false;
 }
 
+
+bool isInvalid2(long value)
+{
+    var size = value.ToString().Length;
+
+    for (int number = 2; number <= size; ++number)
+    {
+        long tmpVal = value;
+        if (size % number != 0)
+        {
+            continue;    
+        }
+        var division = Convert.ToInt64(Math.Pow(10, size / number));
+        var previous = tmpVal % division;
+        tmpVal /= division;
+        for (long i = size / number; i <= size; i += size / number)
+        {
+            if (i == size)
+            {
+                return true;
+            }
+            var curr = tmpVal % division;
+            tmpVal /= division;
+            if (curr != previous)
+            {
+                break;
+            }
+            previous = curr;
+        }
+    }
+
+
+
+    return false;
+}
+
 var line = File.ReadAllText(fileName);
 long count = 0;
 
@@ -32,7 +68,7 @@ foreach (string range in line.Split(','))
 
     for (var i = begin; i <= end; i++)
     {
-        if (isInvalid(i))
+        if (isInvalid2(i))
         {
             count += i;
         }
