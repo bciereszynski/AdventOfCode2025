@@ -55,7 +55,7 @@ long CalculateTimelines((int x, int y) point)
     {
         if (resultGrid[point.x, point.y] == 0)
         {
-            resultGrid[point.x, point.y] = CalculateTimelines((point.x, point.y - 1)) + CalculateTimelines((point.x, point.y + 1));
+            resultGrid[point.x, point.y] = checked(CalculateTimelines((point.x, point.y - 1)) + CalculateTimelines((point.x, point.y + 1)));
         }
         return resultGrid[point.x, point.y];
     }
