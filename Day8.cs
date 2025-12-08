@@ -47,7 +47,7 @@ int Find(int idx, int[] groups)
     return result;
 }
 
-void Union(int idxA, int idxB, int[] groups, int[] groupsCount)
+bool Union(int idxA, int idxB, int[] groups, int[] groupsCount)
 {
     int findA = Find(idxA, groups);
     int findB = Find(idxB, groups);
@@ -57,7 +57,13 @@ void Union(int idxA, int idxB, int[] groups, int[] groupsCount)
         groupsCount[findB] += groupsCount[findA];
         groupsCount[findA] = -1;
         groups[findA] = findB;
+
+        if (groupsCount[findB] == groupsCount.Length)
+        {
+            return true;
+        }
     }
+    return false;
 }
 
 var groups = new int[coordinates.Count()];
@@ -69,11 +75,13 @@ for (int i = 0; i < groups.Length; i++)
     groupsCount[i] = 1;
 }
 
-distances = distances.OrderBy(d => d.distance).Take(1000).ToList();
+distances = distances.OrderBy(d => d.distance).ToList();
 
 foreach (var distance in distances)
 {
-    Union(distance.first, distance.second, groups, groupsCount);
+    if(Union(distance.first, distance.second, groups, groupsCount))
+    {
+        Console.WriteLine(checked((long)coordinates[distance.first].x * coordinates[distance.second].x));
+        break;
+    }
 }
-
-Console.WriteLine(groupsCount.OrderByDescending(d => d).Take(3).Aggregate((agg, x) => agg*x));
